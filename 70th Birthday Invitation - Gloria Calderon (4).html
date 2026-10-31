@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gloria Calderon's 70th Birthday Celebration</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        roseGold: {
+                            100: '#FAF0E6',
+                            200: '#F5E1D3',
+                            300: '#E8C5B0',
+                            400: '#D8A48F',
+                            500: '#C5836E',
+                            600: '#B06854',
+                        },
+                        champagne: {
+                            50: '#FFFDF9',
+                            100: '#FDF8EC',
+                            200: '#FAF0D4',
+                            300: '#F5E4B3',
+                            400: '#EBD48E',
+                            500: '#D9BE68',
+                            600: '#B89B40',
+                        },
+                        deepBurgundy: '#3B1219',
+                        darkPlum: '#1A0B10',
+                        cream: '#FDFBF7',
+                    },
+                    fontFamily: {
+                        script: ['Great Vibes', 'cursive'],
+                        serifHeader: ['Cinzel', 'serif'],
+                        bodySerif: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'glow': '0 0 25px rgba(217, 190, 104, 0.35)',
+                        'rose-glow': '0 0 30px rgba(216, 164, 143, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles & Shimmer Animations */
+        body {
+            background-color: #1A0B10;
+            color: #FAF0E6;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF0D0 0%, #EBD48E 40%, #B89B40 70%, #F5E4B3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .rose-gold-gradient-text {
+            background: linear-gradient(135deg, #FFF0E6 0%, #E8C5B0 40%, #C5836E 70%, #F5E1D3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-card {
+            background: rgba(43, 20, 27, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(235, 212, 142, 0.25);
+        }
+
+        .glass-card-rose {
+            background: rgba(59, 18, 25, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(216, 164, 143, 0.25);
+        }
+
+        .border-gold-frame {
+            border: 1px solid rgba(235, 212, 142, 0.3);
+            outline: 1px solid rgba(235, 212, 142, 0.15);
+            outline-offset: 6px;
+        }
+
+        /* Ambient Canvas overlay */
+        #glitterCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Subtle Shimmer Button */
+        .btn-shimmer {
+            background: linear-gradient(110deg, #B06854 0%, #D8A48F 25%, #F5E1D3 50%, #D8A48F 75%, #B06854 100%);
+            background-size: 200% 100%;
+            animation: shimmer 4s infinite linear;
+            transition: all 0.3s ease;
+        }
+
+        .btn-shimmer:hover {
+            box-shadow: 0 0 20px rgba(216, 164, 143, 0.6);
+            transform: translateY(-2px);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1A0B10;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4A222B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C5836E;
+        }
+
+        /* Decorative floral corner svgs */
+        .floral-corner-tl {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 80px;
+            height: 80px;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        .floral-corner-tr {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 80px;
+            height: 80px;
+            transform: scaleX(-1);
+            pointer-events: none;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen selection:bg-roseGold-500 selection:text-white">
+
+    <!-- Ambient Glitter & Petals Canvas -->
+    <canvas id="glitterCanvas"></canvas>
+
+    <!-- Floating Audio Control Toggle -->
+    <div class="fixed top-5 right-5 z-50">
+        <button id="musicToggle" onclick="toggleAudio()" aria-label="Toggle background music" class="glass-card p-3.5 rounded-full text-champagne-300 hover:text-white hover:scale-110 transition-all duration-300 shadow-glow flex items-center justify-center space-x-2 group border border-champagne-400/40">
+            <i id="musicIcon" class="fas font-solid fa-music text-lg group-hover:rotate-12 transition-transform"></i>
+            <span id="musicText" class="text-xs font-serifHeader hidden md:inline tracking-widest pl-1 uppercase pr-1">Music Off</span>
+        </button>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <main class="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-24">
+
+        <!-- HERO / COVER SECTION -->
+        <section class="min-h-[85vh] flex flex-col justify-center items-center text-center relative py-12">
+            <!-- Decorative Laurel / Crest SVG -->
+            <div class="mb-6 opacity-90 animate-fade-in">
+                <svg class="w-24 h-24 sm:w-32 sm:h-32 mx-auto text-champagne-400" viewBox="0 0 100 100" fill="currentColor">
+                    <path d="M50,5 C52,25 35,35 20,35 C35,45 30,65 50,70 C70,65 65,45 80,35 C65,35 48,25 50,5 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <text x="50" y="55" font-family="'Cinzel', serif" font-size="28" font-weight="700" text-anchor="middle" fill="#EBD48E">70</text>
+                </svg>
+            </div>
+
+            <span class="font-serifHeader text-xs sm:text-sm uppercase tracking-[0.35em] text-champagne-300 mb-3 block">
+                Celebrating Seventy Graceful Years
+            </span>
+
+            <h1 class="font-script text-6xl sm:text-8xl md:text-9xl rose-gold-gradient-text drop-shadow-lg mb-4 py-2">
+                Gloria Calderon
+            </h1>
+
+            <p class="font-bodySerif italic text-base sm:text-xl text-roseGold-200 max-w-xl mx-auto leading-relaxed mb-8">
+                "Life is a tapestry woven with love, laughter, and unforgettable moments. Please join us to honor a remarkable woman and her milestone birthday."
+            </p>
+
+            <!-- Quick Action Links -->
+            <div class="flex flex-wrap justify-center gap-4 mt-2">
+                <a href="#rsvp" class="btn-shimmer text-white font-serifHeader text-xs sm:text-sm px-8 py-3.5 rounded-full uppercase tracking-wider font-semibold shadow-lg">
+                    RSVP Now
+                </a>
+                <a href="#details" class="glass-card hover:bg-roseGold-600/30 text-champagne-200 font-serifHeader text-xs sm:text-sm px-8 py-3.5 rounded-full uppercase tracking-wider border border-champagne-400/30 transition-all">
+                    Event Details
+                </a>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 animate-bounce opacity-70">
+                <a href="#countdown" aria-label="Scroll down">
+                    <i class="fas fa-chevron-down text-champagne-400 text-lg"></i>
+                </a>
+            </div>
+        </section>
+
+
+        <!-- COUNTDOWN TIMER SECTION -->
+        <section id="countdown" class="scroll-mt-24 text-center">
+            <div class="glass-card p-8 sm:p-10 rounded-2xl border-gold-frame relative max-w-3xl mx-auto shadow-rose-glow">
+                
+                <h2 class="font-serifHeader text-sm sm:text-base uppercase tracking-[0.25em] text-champagne-400 mb-6">
+                    Countdown to Gloria's 70th Gala
+                </h2>
+
+                <div class="grid grid-cols-4 gap-2 sm:gap-6 my-4">
+                    <div class="bg-darkPlum/80 p-3 sm:p-5 rounded-xl border border-roseGold-500/20">
+                        <span id="days" class="font-serifHeader text-2xl sm:text-4xl md:text-5xl font-bold gold-gradient-text block">00</span>
+                        <span class="text-[10px] sm:text-xs uppercase tracking-widest text-roseGold-300 mt-1 block">Days</span>
+                    </div>
+                    <div class="bg-darkPlum/80 p-3 sm:p-5 rounded-xl border border-roseGold-500/20">
+                        <span id="hours" class="font-serifHeader text-2xl sm:text-4xl md:text-5xl font-bold gold-gradient-text block">00</span>
+                        <span class="text-[10px] sm:text-xs uppercase tracking-widest text-roseGold-300 mt-1 block">Hours</span>
+                    </div>
+                    <div class="bg-darkPlum/80 p-3 sm:p-5 rounded-xl border border-roseGold-500/20">
+                        <span id="minutes" class="font-serifHeader text-2xl sm:text-4xl md:text-5xl font-bold gold-gradient-text block">00</span>
+                        <span class="text-[10px] sm:text-xs uppercase tracking-widest text-roseGold-300 mt-1 block">Mins</span>
+                    </div>
+                    <div class="bg-darkPlum/80 p-3 sm:p-5 rounded-xl border border-roseGold-500/20">
+                        <span id="seconds" class="font-serifHeader text-2xl sm:text-4xl md:text-5xl font-bold gold-gradient-text block">00</span>
+                        <span class="text-[10px] sm:text-xs uppercase tracking-widest text-roseGold-300 mt-1 block">Secs</span>
+                    </div>
+                </div>
+
+                <p class="text-xs sm:text-sm font-sans text-roseGold-200/80 mt-4 italic">
+                    Saturday, November 7, 2026 • Suanci Court, Brgy. Kadampat, Bolo, Pangasinan
+                </p>
+            </div>
+        </section>
+
+
+        <!-- EVENT DETAILS CARD SECTION -->
+        <section id="details" class="scroll-mt-24">
+            <div class="text-center mb-10">
+                <h2 class="font-script text-4xl sm:text-5xl text-champagne-300">Celebration Details</h2>
+                <div class="w-24 h-0.5 bg-gradient-to-r from-transparent via-champagne-400 to-transparent mx-auto mt-2"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+
+                <!-- Date & Time -->
+                <div class="glass-card p-6 sm:p-8 rounded-2xl text-center relative group hover:border-champagne-400/60 transition-all">
+                    <div class="w-14 h-14 rounded-full bg-roseGold-600/20 border border-roseGold-400/40 flex items-center justify-center mx-auto mb-4 text-champagne-300 text-xl group-hover:scale-110 transition-transform">
+                        <i class="far fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="font-serifHeader text-lg tracking-wider text-roseGold-100 uppercase mb-2">When</h3>
+                    <p class="font-semibold text-champagne-300">Saturday, Nov 7, 2026</p>
+                    <p class="text-xs text-roseGold-200 mt-1">4:30 PM MNL Onwards</p>
+                    <div class="mt-4 pt-4 border-t border-roseGold-500/20">
+                        <button onclick="addToCalendar()" class="text-xs text-champagne-400 hover:text-white uppercase tracking-wider font-semibold underline underline-offset-4 flex items-center justify-center mx-auto gap-1.5">
+                            <i class="fas fa-plus text-[10px]"></i> Add to Calendar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Venue & Location -->
+                <div class="glass-card p-6 sm:p-8 rounded-2xl text-center relative group hover:border-champagne-400/60 transition-all">
+                    <div class="w-14 h-14 rounded-full bg-roseGold-600/20 border border-roseGold-400/40 flex items-center justify-center mx-auto mb-4 text-champagne-300 text-xl group-hover:scale-110 transition-transform">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="font-serifHeader text-lg tracking-wider text-roseGold-100 uppercase mb-2">Where</h3>
+                    <p class="font-semibold text-champagne-300">Suanci Court</p>
+                    <p class="text-xs text-roseGold-200 mt-1">Barangay Kadampat, Bolo<br>Pangasinan, Philippines</p>
+                    <div class="mt-4 pt-4 border-t border-roseGold-500/20">
+                        <a href="https://maps.app.goo.gl/ZwYvm2pArKHhLNd48?g_st=ac" target="_blank" rel="noopener noreferrer" class="text-xs text-champagne-400 hover:text-white uppercase tracking-wider font-semibold underline underline-offset-4 flex items-center justify-center mx-auto gap-1.5">
+                            <i class="fas fa-directions text-[10px]"></i> Get Directions
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Attire / Dress Code -->
+                <div class="glass-card p-6 sm:p-8 rounded-2xl text-center relative group hover:border-champagne-400/60 transition-all">
+                    <div class="w-14 h-14 rounded-full bg-roseGold-600/20 border border-roseGold-400/40 flex items-center justify-center mx-auto mb-4 text-champagne-300 text-xl group-hover:scale-110 transition-transform">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="font-serifHeader text-lg tracking-wider text-roseGold-100 uppercase mb-2">Dress Code</h3>
+                    <p class="font-semibold text-champagne-300">Semi-Formal / Casual</p>
+                    <p class="text-xs text-roseGold-200 mt-1">Rose Gold, White, or Warm Earth Tones</p>
+                    <div class="mt-4 pt-4 border-t border-roseGold-500/20 flex justify-center space-x-2">
+                        <span class="w-4 h-4 rounded-full bg-[#D8A48F] border border-white/20 inline-block" title="Rose Gold"></span>
+                        <span class="w-4 h-4 rounded-full bg-[#FFFFFF] border border-white/20 inline-block" title="White"></span>
+                        <span class="w-4 h-4 rounded-full bg-[#8C2D19] border border-white/20 inline-block" title="Warm Earth Tone"></span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- INTERACTIVE RSVP FORM -->
+        <section id="rsvp" class="scroll-mt-24 max-w-2xl mx-auto">
+            <div class="glass-card p-6 sm:p-10 rounded-2xl border-gold-frame relative shadow-glow">
+                
+                <div class="text-center mb-8">
+                    <span class="font-serifHeader text-xs uppercase tracking-[0.3em] text-champagne-400 block mb-1">Kindly Respond (Public RSVP)</span>
+                    <h2 class="font-script text-4xl sm:text-5xl text-roseGold-200">R.S.V.P.</h2>
+                    <p class="text-xs text-roseGold-300/80 mt-1">No Google account or login needed. Please submit your response below.</p>
+                </div>
+
+                <!-- Confirmation Alert Box -->
+                <div id="rsvpAlert" class="hidden mb-6 p-4 rounded-xl bg-champagne-500/20 border border-champagne-400/50 text-center animate-fade-in">
+                    <i class="fas fa-check-circle text-champagne-300 text-2xl mb-2"></i>
+                    <h4 class="font-serifHeader text-sm text-champagne-200" id="rsvpAlertTitle">Thank You!</h4>
+                    <p class="text-xs text-roseGold-100 mt-1" id="rsvpAlertMsg">Your response has been added to the guest list below.</p>
+                </div>
+
+                <form id="rsvpForm" onsubmit="handleRSVPSubmit(event)" class="space-y-5">
+                    <div>
+                        <label for="guestName" class="block text-xs font-serifHeader tracking-wider uppercase text-champagne-300 mb-1.5">Full Name(s) *</label>
+                        <input type="text" id="guestName" required placeholder="e.g. Juan & Maria Dela Cruz" class="w-full bg-darkPlum/90 border border-roseGold-500/30 rounded-xl px-4 py-3 text-sm text-roseGold-100 focus:outline-none focus:border-champagne-400 transition-colors placeholder:text-roseGold-400/40">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-serifHeader tracking-wider uppercase text-champagne-300 mb-1.5">Attendance Status *</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <label class="cursor-pointer border border-roseGold-500/30 bg-darkPlum/70 p-3 rounded-xl flex items-center space-x-3 hover:border-champagne-400 transition-all">
+                                <input type="radio" name="attendance" value="accept" checked class="accent-champagne-400">
+                                <span class="text-xs text-roseGold-100 font-medium">Joyfully Accepts</span>
+                            </label>
+                            <label class="cursor-pointer border border-roseGold-500/30 bg-darkPlum/70 p-3 rounded-xl flex items-center space-x-3 hover:border-champagne-400 transition-all">
+                                <input type="radio" name="attendance" value="decline" class="accent-champagne-400">
+                                <span class="text-xs text-roseGold-100 font-medium">Regretfully Declines</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="guestCount" class="block text-xs font-serifHeader tracking-wider uppercase text-champagne-300 mb-1.5">Total Number of Guests</label>
+                            <select id="guestCount" class="w-full bg-darkPlum/90 border border-roseGold-500/30 rounded-xl px-4 py-3 text-sm text-roseGold-100 focus:outline-none focus:border-champagne-400 transition-colors">
+                                <option value="1">1 Person</option>
+                                <option value="2">2 Persons</option>
+                                <option value="3">3 Persons</option>
+                                <option value="4">4 Persons</option>
+                                <option value="5">5+ Persons</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-xs font-serifHeader tracking-wider uppercase text-champagne-300 mb-1.5">Mobile Phone / Contact (Optional)</label>
+                            <input type="text" id="phone" placeholder="0917-XXX-XXXX" class="w-full bg-darkPlum/90 border border-roseGold-500/30 rounded-xl px-4 py-3 text-sm text-roseGold-100 focus:outline-none focus:border-champagne-400 transition-colors placeholder:text-roseGold-400/40">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="message" class="block text-xs font-serifHeader tracking-wider uppercase text-champagne-300 mb-1.5">Message / Wishes for Tita Gloria</label>
+                        <textarea id="message" rows="2" placeholder="Send a sweet message or well wishes..." class="w-full bg-darkPlum/90 border border-roseGold-500/30 rounded-xl px-4 py-3 text-sm text-roseGold-100 focus:outline-none focus:border-champagne-400 transition-colors placeholder:text-roseGold-400/40"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full btn-shimmer text-white font-serifHeader text-xs sm:text-sm py-4 rounded-xl uppercase tracking-widest font-semibold mt-2 shadow-lg">
+                        Submit RSVP Response
+                    </button>
+                </form>
+
+            </div>
+        </section>
+
+
+        <!-- PUBLIC GUEST LIST & ATTENDANCE TRACKER SECTION -->
+        <section id="guest-list" class="scroll-mt-24 max-w-3xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="font-script text-4xl sm:text-5xl text-champagne-300">RSVP Guest Responses</h2>
+                <p class="text-xs uppercase tracking-widest text-roseGold-300 mt-1">See Who Is Coming to Celebrate</p>
+                <div class="w-24 h-0.5 bg-gradient-to-r from-transparent via-champagne-400 to-transparent mx-auto mt-2"></div>
+            </div>
+
+            <!-- Headcount summary cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
+                <div class="glass-card p-4 rounded-xl text-center border border-champagne-400/30">
+                    <span id="totalAttendingCount" class="font-serifHeader text-2xl sm:text-3xl font-bold gold-gradient-text block">0</span>
+                    <span class="text-[11px] uppercase tracking-wider text-roseGold-200 mt-0.5 block">Guests Attending</span>
+                </div>
+                <div class="glass-card p-4 rounded-xl text-center border border-roseGold-500/20">
+                    <span id="totalResponsesCount" class="font-serifHeader text-2xl sm:text-3xl font-bold text-roseGold-200 block">0</span>
+                    <span class="text-[11px] uppercase tracking-wider text-roseGold-300 mt-0.5 block">Total Responses</span>
+                </div>
+                <div class="glass-card p-4 rounded-xl text-center border border-roseGold-500/20 col-span-2 sm:col-span-1">
+                    <span id="declinedCount" class="font-serifHeader text-2xl sm:text-3xl font-bold text-roseGold-400/70 block">0</span>
+                    <span class="text-[11px] uppercase tracking-wider text-roseGold-400/70 mt-0.5 block">Declined</span>
+                </div>
+            </div>
+
+            <!-- Filter tabs -->
+            <div class="flex justify-center space-x-2 mb-6">
+                <button onclick="filterGuestList('all')" id="tab-all" class="px-4 py-2 rounded-full text-xs font-serifHeader uppercase tracking-wider border border-champagne-400/40 bg-roseGold-600/40 text-white">All</button>
+                <button onclick="filterGuestList('accept')" id="tab-accept" class="px-4 py-2 rounded-full text-xs font-serifHeader uppercase tracking-wider border border-roseGold-500/20 bg-darkPlum/70 text-roseGold-300">Attending</button>
+                <button onclick="filterGuestList('decline')" id="tab-decline" class="px-4 py-2 rounded-full text-xs font-serifHeader uppercase tracking-wider border border-roseGold-500/20 bg-darkPlum/70 text-roseGold-300">Declined</button>
+            </div>
+
+            <!-- Dynamic Guest List Cards -->
+            <div id="publicGuestList" class="space-y-3">
+                <!-- Guests loaded dynamically -->
+            </div>
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="text-center py-8 border-t border-roseGold-500/20 pb-24">
+            <h3 class="font-script text-4xl text-rose-gold-gradient-text">Gloria Calderon</h3>
+            <p class="font-serifHeader text-xs text-roseGold-300 tracking-widest uppercase mt-2">70 Years of Grace, Love & Inspiration</p>
+            <p class="text-[11px] text-roseGold-400/60 mt-4 font-sans">
+                Suanci Court, Brgy. Kadampat, Bolo, Pangasinan • Nov 7, 2026
+            </p>
+        </footer>
+
+    </main>
+
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* -------------------------------------------------------------
+         * 1. Countdown Timer (Nov 7, 2026)
+         * ------------------------------------------------------------- */
+        const eventDate = new Date("November 7, 2026 16:30:00 GMT+0800").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? '0' + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        /* -------------------------------------------------------------
+         * 2. Add to Calendar Function
+         * ------------------------------------------------------------- */
+        function addToCalendar() {
+            const title = "Gloria Calderon 70th Birthday Celebration";
+            const details = "70th Birthday Gala honoring Gloria Calderon at Suanci Court, Brgy. Kadampat, Bolo, Pangasinan.";
+            const location = "Suanci Court, Barangay Kadampat, Bolo, Pangasinan";
+            const startDate = "20261107T163000";
+            const endDate = "20261107T223000";
+
+            const icsContent = 
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Gloria 70th Birthday Invitation//EN
+BEGIN:VEVENT
+SUMMARY:${title}
+DESCRIPTION:${details}
+LOCATION:${location}
+DTSTART:${startDate}
+DTEND:${endDate}
+STATUS:CONFIRMED
+END:VEVENT
+END:VCALENDAR`;
+
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.setAttribute('download', 'Gloria_Calderon_70th_Birthday.ics');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        /* -------------------------------------------------------------
+         * 3. Initial Guest RSVPs & LocalStorage Management
+         * ------------------------------------------------------------- */
+        const defaultRSVPs = [];
+
+        let currentFilter = 'all';
+
+        function getGuestResponses() {
+            const saved = localStorage.getItem('gloria_70th_all_rsvps');
+            if (!saved) {
+                localStorage.setItem('gloria_70th_all_rsvps', JSON.stringify(defaultRSVPs));
+                return defaultRSVPs;
+            }
+            return JSON.parse(saved);
+        }
+
+        function renderGuestList() {
+            const responses = getGuestResponses();
+            const listContainer = document.getElementById('publicGuestList');
+            listContainer.innerHTML = '';
+
+            // Calculate Headcounts
+            let totalAttending = 0;
+            let totalResponses = responses.length;
+            let declinedCount = 0;
+
+            responses.forEach(r => {
+                if (r.attendance === 'accept') {
+                    totalAttending += parseInt(r.count || 1);
+                } else {
+                    declinedCount++;
+                }
+            });
+
+            document.getElementById('totalAttendingCount').innerText = totalAttending;
+            document.getElementById('totalResponsesCount').innerText = totalResponses;
+            document.getElementById('declinedCount').innerText = declinedCount;
+
+            // Filter logic
+            const filtered = responses.filter(r => {
+                if (currentFilter === 'all') return true;
+                return r.attendance === currentFilter;
+            });
+
+            if (filtered.length === 0) {
+                listContainer.innerHTML = `<p class="text-center text-xs text-roseGold-400/60 py-6">No guest responses in this view yet.</p>`;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const isAccept = item.attendance === 'accept';
+                const card = document.createElement('div');
+                card.className = "glass-card p-4 rounded-xl border border-roseGold-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3";
+                card.innerHTML = `
+                    <div class="flex items-start space-x-3">
+                        <div class="w-9 h-9 rounded-full ${isAccept ? 'bg-emerald-900/50 text-emerald-300 border border-emerald-500/40' : 'bg-rose-950/50 text-rose-300 border border-rose-500/30'} flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <i class="${isAccept ? 'fas fa-check' : 'fas fa-times'} text-xs"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-serifHeader text-sm font-semibold text-champagne-200">${escapeHTML(item.name)}</h4>
+                            ${item.message ? `<p class="text-xs text-roseGold-200 italic mt-0.5">"${escapeHTML(item.message)}"</p>` : ''}
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 text-right self-end sm:self-center">
+                        <span class="text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full font-serifHeader ${isAccept ? 'bg-champagne-400/20 text-champagne-300 border border-champagne-400/30' : 'bg-darkPlum border border-roseGold-500/30 text-roseGold-400'}">
+                            ${isAccept ? `${item.count} Attending` : 'Declined'}
+                        </span>
+                    </div>
+                `;
+                listContainer.appendChild(card);
+            });
+        }
+
+        function filterGuestList(filter) {
+            currentFilter = filter;
+            ['all', 'accept', 'decline'].forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if (t === filter) {
+                    btn.className = "px-4 py-2 rounded-full text-xs font-serifHeader uppercase tracking-wider border border-champagne-400/40 bg-roseGold-600/40 text-white";
+                } else {
+                    btn.className = "px-4 py-2 rounded-full text-xs font-serifHeader uppercase tracking-wider border border-roseGold-500/20 bg-darkPlum/70 text-roseGold-300";
+                }
+            });
+            renderGuestList();
+        }
+
+        function handleRSVPSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('guestName').value;
+            const attendance = document.querySelector('input[name="attendance"]:checked').value;
+            const count = document.getElementById('guestCount').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+
+            const newRSVP = {
+                name,
+                attendance,
+                count: attendance === 'accept' ? parseInt(count) : 0,
+                phone,
+                message,
+                date: "Just now"
+            };
+
+            const responses = getGuestResponses();
+            responses.unshift(newRSVP);
+            localStorage.setItem('gloria_70th_all_rsvps', JSON.stringify(responses));
+
+            // Display confirmation feedback
+            const alertBox = document.getElementById('rsvpAlert');
+            const alertTitle = document.getElementById('rsvpAlertTitle');
+            const alertMsg = document.getElementById('rsvpAlertMsg');
+
+            if (attendance === 'accept') {
+                alertTitle.innerText = `Thank you, ${name}!`;
+                alertMsg.innerText = `Your RSVP for ${count} guest(s) has been recorded and added to the public guest list below.`;
+            } else {
+                alertTitle.innerText = `Thank you for letting us know, ${name}`;
+                alertMsg.innerText = `Your response has been noted. We will miss you!`;
+            }
+
+            alertBox.classList.remove('hidden');
+            document.getElementById('rsvpForm').reset();
+            renderGuestList();
+
+            document.getElementById('guest-list').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Initialize view on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderGuestList();
+        });
+
+        function escapeHTML(str) {
+            if (!str) return '';
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
+        }
+
+        /* -------------------------------------------------------------
+         * 4. Ambient Audio & Particle Canvas
+         * ------------------------------------------------------------- */
+        let audioCtx = null;
+        let isPlaying = false;
+        let melodyInterval = null;
+
+        function toggleAudio() {
+            const musicIcon = document.getElementById('musicIcon');
+            const musicText = document.getElementById('musicText');
+
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            if (!isPlaying) {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                startAmbientMusic();
+                isPlaying = true;
+                musicIcon.className = "fas fa-volume-up text-lg text-champagne-300 animate-pulse";
+                musicText.innerText = "Music On";
+            } else {
+                stopAmbientMusic();
+                isPlaying = false;
+                musicIcon.className = "fas fa-music text-lg";
+                musicText.innerText = "Music Off";
+            }
+        }
+
+        function playPianoNote(freq, duration = 2.5) {
+            if (!audioCtx || !isPlaying) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 0.05);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        }
+
+        function startAmbientMusic() {
+            const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 349.23, 293.66];
+            let step = 0;
+            melodyInterval = setInterval(() => {
+                if (!isPlaying) return;
+                playPianoNote(notes[step % notes.length], 3.0);
+                step++;
+            }, 1200);
+        }
+
+        function stopAmbientMusic() {
+            if (melodyInterval) clearInterval(melodyInterval);
+        }
+
+        const canvas = document.getElementById('glitterCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const particleCount = 40;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height - canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedY = Math.random() * 0.7 + 0.2;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.opacity = Math.random() * 0.6 + 0.3;
+                this.color = Math.random() > 0.4 ? '#EBD48E' : '#D8A48F';
+                this.swing = Math.random() * 0.02;
+                this.angle = Math.random() * Math.PI * 2;
+            }
+            update() {
+                this.angle += this.swing;
+                this.x += Math.sin(this.angle) * 0.5 + this.speedX;
+                this.y += this.speedY;
+                if (this.y > canvas.height + 10) {
+                    this.reset();
+                    this.y = -10;
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateGlitter() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateGlitter);
+        }
+
+        window.onload = function() {
+            animateGlitter();
+        };
+    </script>
+</body>
+</html>
